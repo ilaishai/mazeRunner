@@ -9,6 +9,7 @@ class Pixel
 		void setToGreen();
 		void setToRed();
 		bool isWhite() const;
+		int* getPixel() const;
 	
 	protected:
 		int red;
@@ -22,9 +23,14 @@ class Maze
 		Maze(int x, int y);
 		Maze(const char* imagePath);
 		~Maze();
+		
+		//visual functions
 		bool loadFromFile();
 		void paint();
 		void display() const;
+		
+		bool findExits();
+		int countPathPixels();
 
 	protected:
 		int x;

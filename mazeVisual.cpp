@@ -49,27 +49,34 @@ void Maze::display() const
 
 
 void Maze::paint()
-{	
-	ofstream image("picture.ppm");
-	image << "P3" << endl;
-	image << x << " " << y << endl;
-	image << "255" << endl;
-
-	for (int i = 0; i < y; ++i)
+{
+	ifstream tryname("produced.ppm");
+	if (tryname)
+		cout << "File exists" << endl;
+	else
 	{
-		for (int k = 0; k < x; ++k)
-		{
-			int r = rand() % 255;
-			int g = rand() % 255;
-			int b = rand() % 255;
-			//int r = i % 255;
-			//int g = k % 255;
-			//int b = (i * k) % 255;
+		ofstream image("produced.ppm");
+		image << "P3" << endl;
+		image << x << " " << y << endl;
+		image << "255" << endl;
 
-			image << r << " " <<  g << " " << b << endl;
+		for (int i = 0; i < y; ++i)
+		{
+			for (int k = 0; k < x; ++k)
+			{
+				int* pixelData = pixelMatrix[i][k].getPixel();
+				
+				int r = pixelData[0];
+				int g = pixelData[1];
+				int b = pixelData[2];
+
+				image << r << " " <<  g << " " << b << endl;
+
+				delete[] pixelData;
+			}
 		}
+		//system("feh -Z produced.ppm");
 	}
-	system("feh -Z picture.bmp");
 }
 
 
@@ -81,7 +88,7 @@ bool Maze::loadFromFile()
 	int count = 0;
 	int rgb[3];
 	ifstream dataFile;
-	dataFile.open("image2.ppm");
+	dataFile.open("image.ppm");
 
 
 	dataFile >> temp;
@@ -93,9 +100,12 @@ bool Maze::loadFromFile()
 	dataFile >> y;
 	dataFile >> temp;
 
+	/*
 	cout << "magic: " << magicNumber << endl;
 	cout << "x " << x << endl;
 	cout << "y " << y << endl;
+	*/
+
 
 	pixelMatrix = new Pixel*[y];
 
@@ -110,11 +120,10 @@ bool Maze::loadFromFile()
 
 		if ((count + 1) %3 == 0)
 		{
-			cout << "\n" << (count/3)+1 << " | ";
+			//cout << "\n" << (count/3)+1 << " | ";
 			pixelMatrix[(count/3)/x][(count/3)%x] = Pixel(rgb[0], rgb[1], rgb[2]);
 			pixelMatrix[(count/3)/x][(count/3)%x].display();
 		}
-
 		++count;
 	}
 
@@ -155,7 +164,7 @@ Pixel::~Pixel()
 
 void Pixel::display() const
 {
-	cout << "(" << red << ", " << green << ", " << blue << ")";
+	//cout << "(" << red << ", " << green << ", " << blue << ")";
 }
 
 
@@ -170,7 +179,9 @@ void Pixel::setColor(int r, int g, int b)
 
 void Pixel::setToGreen()
 {
+	red = 0;
 	green = 255;
+	blue = 0;
 }
 
 
@@ -178,6 +189,8 @@ void Pixel::setToGreen()
 void Pixel::setToRed()
 {
 	red = 255;
+	green = 0;
+	blue = 0;
 }
 
 
@@ -186,4 +199,16 @@ bool Pixel::isWhite() const
 	if (red == 255 && green == 255 && blue == 255)
 		return true;
 	return false;
+}
+
+
+
+int* Pixel::getPixel() const
+{
+	int* pixelData = new int[3];
+	pixelData[0] = red;
+	pixelData[1] = green;
+	pixelData[2] = blue;
+
+	return pixelData;
 }
