@@ -1,7 +1,9 @@
 #include "mazeInfo.hpp"
+#include "nodeQueue.hpp"
 #include <iostream>
 
 using namespace std;
+
 
 bool Maze::findExits()
 {

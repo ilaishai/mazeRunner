@@ -141,6 +141,8 @@ Pixel::Pixel()
 	red = 0;
 	green = 0;
 	blue = 0;
+	
+	visited = false;
 }
 
 
@@ -150,6 +152,8 @@ Pixel::Pixel(int r, int g, int b)
 	red = r;
 	green = g;
 	blue = b;
+	
+	visited = false;
 }
 
 
@@ -159,6 +163,8 @@ Pixel::~Pixel()
 	red = 0;
 	green = 0;
 	blue = 0;
+
+	visited = false;
 }
 
 

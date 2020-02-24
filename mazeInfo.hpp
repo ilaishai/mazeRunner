@@ -1,3 +1,6 @@
+
+#ifndef PIXEL
+#define PIXEL
 class Pixel
 {
 	public:
@@ -15,8 +18,13 @@ class Pixel
 		int red;
 		int green;
 		int blue;
+		bool visited;
 };
 
+#endif
+
+#ifndef MAZE
+#define MAZE
 class Maze
 {
 	public:
@@ -38,3 +46,4 @@ class Maze
 		Pixel** pixelMatrix;
 
 };
+#endif
