@@ -13,6 +13,9 @@ class Pixel
 		void setToRed();
 		bool isWhite() const;
 		int* getPixel() const;
+		bool notVisited() const;
+		bool isValid() const;
+		void markVisited();
 	
 	protected:
 		int red;
@@ -37,8 +40,10 @@ class Maze
 		void paint();
 		void display() const;
 		
-		bool findExits();
+		int* findExits();
 		int countPathPixels();
+		bool BFS(int startX, int startY, int destX, int destY);
+		bool DFS(int startX, int startY, int destX, int destY);
 
 	protected:
 		int x;

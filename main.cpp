@@ -12,7 +12,8 @@ void loadFromFile();
 int main()
 {
 	//char temp[100];
-	/*
+	
+
 	Maze maze1("doesn't do anything yet");
 
 
@@ -20,11 +21,12 @@ int main()
 	cout << "\n\n\n" << endl;
 	maze1.display();
 
-	maze1.findExits();
-	maze1.paint();
-	*/
+	int* arrayStuff = maze1.findExits();
+	for (int i = 0; i < 4; ++i)
+		cout << arrayStuff[i]+1 << ", ";
 
 	
+	/*
 	Queue newQueue;
 	while (true)
 	{
@@ -54,5 +56,16 @@ int main()
 				break;
 		}
 	}
+	*/
+
+	cout << "COUNT: " << maze1.countPathPixels() << endl;
+
+	if (maze1.DFS(arrayStuff[0], arrayStuff[1], arrayStuff[2], arrayStuff[3]))
+		cout << "SUCCESS" << endl;
+	else
+		cout << "FAILED" << endl;
+	
+	maze1.paint();
+	delete[] arrayStuff;
 	return 0;
 }

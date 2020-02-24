@@ -25,11 +25,11 @@ Queue::~Queue()
 	}
 }
 
-void Queue::enqueue(int toAdd)
+void Queue::enqueue(Pixel* toAdd)
 {
 	QueueNode* temp = new QueueNode;
-	temp -> data = toAdd;
-	temp -> contents = NULL;
+	//temp -> data = toAdd;
+	temp -> contents = toAdd;
 
 	if (front)
 	{
@@ -79,4 +79,13 @@ void Queue::display()
 			current = current -> next;
 		} while (current != rear);
 	}
+}
+
+
+
+bool Queue::hasItems() const
+{
+	if (front)
+		return true;
+	return false;
 }

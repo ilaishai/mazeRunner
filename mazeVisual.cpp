@@ -208,6 +208,12 @@ bool Pixel::isWhite() const
 }
 
 
+bool Pixel::notVisited() const
+{
+	return !visited;
+}
+
+
 
 int* Pixel::getPixel() const
 {
@@ -217,4 +223,16 @@ int* Pixel::getPixel() const
 	pixelData[2] = blue;
 
 	return pixelData;
+}
+
+
+bool Pixel::isValid() const
+{
+	return notVisited() && isWhite();
+}
+
+
+void Pixel::markVisited()
+{
+	visited = true;
 }
